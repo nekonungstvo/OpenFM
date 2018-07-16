@@ -50,18 +50,6 @@ public class OpenFM {
 		// Load config
 		configFile = new File(event.getModConfigurationDirectory() + "/openfm/openfm.cfg");
 		OFMConfiguration.init(configFile);
-		
-		// Check for Mod Update Detector
-		if (event.getSourceFile().getName().endsWith(".jar") && event.getSide().isClient() && OFMConfiguration.enableMUD) {
-			logger.info("Registering mod with OpenUpdater.");
-			try {
-				Class.forName("pcl.mud.OpenUpdater").getDeclaredMethod("registerMod", ModContainer.class, URL.class, URL.class).invoke(null, FMLCommonHandler.instance().findContainerFor(this),
-						new URL("http://PC-Logix.com/OpenFM/get_latest_build.php?mcver=1.7.10"),
-						new URL("http://PC-Logix.com/OpenFM/changelog.php?mcver=1.7.10"));
-			} catch (Throwable e) {
-				logger.info("OpenUpdater is not installed, not registering.");
-			}
-		}
 	}
 
 	@SideOnly(Side.CLIENT)
